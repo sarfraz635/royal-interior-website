@@ -129,6 +129,11 @@ app.get('/images/portfolio', (req, res) => {
   });
 });
 
+// Route for root "/"
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`✅ Server running at: http://localhost:${PORT}`);
