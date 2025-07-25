@@ -11,12 +11,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&display=swap" rel="stylesheet">
 </head>
 <body>
+
   <!-- Header -->
   <header class="header">
     <div class="container">
       <img src="images/Royal_touch_logo.png" alt="Royal Touch Logo" class="logo">
+      <button class="menu-toggle" id="menu-toggle">☰</button>
       <nav class="navbar">
-        <a href="#">Home</a>
+        <a href="index.html">Home</a>
         <a href="services.html">Services</a>
         <a href="products.html">Products</a>
         <a href="portfolio.html">Portfolio</a>
@@ -25,6 +27,19 @@
       </nav>
     </div>
   </header>
+
+  <!-- Side Drawer Navigation -->
+  <nav class="side-drawer" id="navbar">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="products.html">Products</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <!-- Overlay -->
+  <div class="overlay" id="menu-overlay"></div>
 
   <!-- Hero Section -->
   <section class="hero">
@@ -39,30 +54,12 @@
   <section class="services">
     <h2>Our Interior Design Services</h2>
     <div class="service-grid">
-      <div class="card">
-        <img src="images/Modular kitchen.jpg" alt="Modular Kitchen" class="zoom-on-hover" />
-        <h3>Modular Kitchen</h3>
-      </div>
-      <div class="card">
-        <img src="images/Living Room.jpg" alt="Living Room" class="zoom-on-hover" />
-        <h3>Living Room</h3>
-      </div>
-      <div class="card">
-        <img src="images/bedroom.jpg" alt="Bedroom Interiors" class="zoom-on-hover" />
-        <h3>Bedroom Interiors</h3>
-      </div>
-      <div class="card">
-        <img src="images/False ceiling.jpg" alt="False ceiling" class="zoom-on-hover" />
-        <h3>False ceiling</h3>
-      </div>
-      <div class="card">
-        <img src="images/Wardrobe Design.jpg" alt="Wardrobe Design" class="zoom-on-hover" />
-        <h3>Wardrobe Design</h3>
-      </div>
-      <div class="card">
-        <img src="images/Office Spaces.jpg" alt="Office Spaces" class="zoom-on-hover" />
-        <h3>Office Spaces</h3>
-      </div>
+      <div class="card"><img src="images/Modular kitchen.jpg" alt="Modular Kitchen" class="zoom-on-hover" /><h3>Modular Kitchen</h3></div>
+      <div class="card"><img src="images/Living Room.jpg" alt="Living Room" class="zoom-on-hover" /><h3>Living Room</h3></div>
+      <div class="card"><img src="images/bedroom.jpg" alt="Bedroom Interiors" class="zoom-on-hover" /><h3>Bedroom Interiors</h3></div>
+      <div class="card"><img src="images/False ceiling.jpg" alt="False ceiling" class="zoom-on-hover" /><h3>False ceiling</h3></div>
+      <div class="card"><img src="images/Wardrobe Design.jpg" alt="Wardrobe Design" class="zoom-on-hover" /><h3>Wardrobe Design</h3></div>
+      <div class="card"><img src="images/Office Spaces.jpg" alt="Office Spaces" class="zoom-on-hover" /><h3>Office Spaces</h3></div>
     </div>
   </section>
 
@@ -70,18 +67,9 @@
   <section class="products">
     <h2>Premium Products</h2>
     <div class="product-grid">
-      <div class="card">
-        <img src="images/Acrylic laminates.jpg" alt="Acrylic Laminates" class="zoom-on-hover" />
-        <h3>Laminates</h3>
-      </div>
-      <div class="card">
-        <img src="images/Wooden Flooring.jpg" alt="Wooden Flooring" class="zoom-on-hover" />
-        <h3>Wooden Flooring</h3>
-      </div>
-      <div class="card">
-        <img src="images/Plywood.jpg" alt="Plywood" class="zoom-on-hover" />
-        <h3>Plywood</h3>
-      </div>
+      <div class="card"><img src="images/Acrylic laminates.jpg" alt="Acrylic Laminates" class="zoom-on-hover" /><h3>Laminates</h3></div>
+      <div class="card"><img src="images/Wooden Flooring.jpg" alt="Wooden Flooring" class="zoom-on-hover" /><h3>Wooden Flooring</h3></div>
+      <div class="card"><img src="images/Plywood.jpg" alt="Plywood" class="zoom-on-hover" /><h3>Plywood</h3></div>
     </div>
   </section>
 
@@ -89,26 +77,11 @@
   <section class="portfolio">
     <h2>Our Work</h2>
     <div class="portfolio-grid">
-      <div class="card">
-        <img src="images/Work6.jpg" alt="Work 1" class="zoom-on-hover" />
-        <h3>Handmade Denim Embroidery Chair With Cushions</h3>
-      </div>
-      <div class="card">
-        <img src="images/Work1.jpg" alt="Work 2" class="zoom-on-hover"/>
-        <h3>Modern Red and Black Living Room Lounge Set</h3>
-      </div>
-      <div class="card">
-        <img src="images/Work2.jpg" alt="Work 3" class="zoom-on-hover"/>
-        <h3>Vibrant Yellow Reading Nook with Bohemian Accents</h3>
-      </div>
-      <div class="card">
-        <img src="images/Work5.jpg" alt="Work 6" class="zoom-on-hover"/>
-        <h3>Soft Pastel Cozy Corner with Decorative Lighting</h3>
-      </div>
-      <div class="card">
-        <img src="images/Work7.jpg" alt="Work 7" class="zoom-on-hover"/>
-        <h3>Contemporary Blue and Tan Lounge Chair Set</h3>
-      </div>
+      <div class="card"><img src="images/Work6.jpg" alt="Work 1" class="zoom-on-hover" /><h3>Handmade Denim Embroidery Chair</h3></div>
+      <div class="card"><img src="images/Work1.jpg" alt="Work 2" class="zoom-on-hover"/><h3>Red & Black Living Room Lounge</h3></div>
+      <div class="card"><img src="images/Work2.jpg" alt="Work 3" class="zoom-on-hover"/><h3>Yellow Bohemian Reading Nook</h3></div>
+      <div class="card"><img src="images/Work5.jpg" alt="Work 6" class="zoom-on-hover"/><h3>Pastel Cozy Corner Lighting</h3></div>
+      <div class="card"><img src="images/Work7.jpg" alt="Work 7" class="zoom-on-hover"/><h3>Blue & Tan Lounge Chair Set</h3></div>
     </div>
   </section>
 
@@ -135,5 +108,23 @@
 
   <!-- WhatsApp button -->
   <a href="https://wa.me/918092177059" class="whatsapp-float" target="_blank">Chat</a>
+
+  <!-- Toggle Script -->
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const navbar = document.getElementById('navbar');
+    const overlay = document.getElementById('menu-overlay');
+
+    menuToggle.addEventListener('click', () => {
+      navbar.classList.toggle('active');
+      overlay.classList.toggle('active');
+    });
+
+    overlay.addEventListener('click', () => {
+      navbar.classList.remove('active');
+      overlay.classList.remove('active');
+    });
+  </script>
+
 </body>
 </html>

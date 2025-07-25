@@ -1,4 +1,4 @@
-// Show scroll-to-top button
+// Scroll-to-top button
 const scrollTopBtn = document.getElementById("scrollTopBtn");
 
 window.onscroll = function () {
@@ -13,7 +13,7 @@ scrollTopBtn.addEventListener("click", function () {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-// Lightbox Functionality (for Services, Products, and Portfolio images)
+// Lightbox for images
 function enableImageLightbox(selector) {
   const images = document.querySelectorAll(selector);
   images.forEach((img) => {
@@ -47,7 +47,23 @@ function enableImageLightbox(selector) {
   });
 }
 
-// Activate lightbox for different sections
 enableImageLightbox(".portfolio-grid img");
 enableImageLightbox(".service-grid img");
 enableImageLightbox(".product-grid img");
+
+// ===== Side Drawer Mobile Menu Toggle =====
+const menuButton = document.getElementById("menu-toggle");
+const mobileMenu = document.getElementById("navbar");
+const overlay = document.getElementById("menu-overlay");
+
+if (menuButton && mobileMenu && overlay) {
+  menuButton.addEventListener("click", () => {
+    mobileMenu.classList.toggle("active");
+    overlay.classList.toggle("active");
+  });
+
+  overlay.addEventListener("click", () => {
+    mobileMenu.classList.remove("active");
+    overlay.classList.remove("active");
+  });
+}

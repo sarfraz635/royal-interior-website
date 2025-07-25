@@ -2,51 +2,98 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Upload Gallery Image - Admin Panel</title>
+  <link rel="stylesheet" href="/css/style.css" />
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
+    .upload-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
       background: #000;
       color: #d4af37;
+    }
+
+    .upload-header {
+      background: #111;
+      padding: 10px 0;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .upload-header .logo {
+      width: 100px;
+      margin: auto;
+    }
+
+    .upload-container {
+      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      padding: 30px 20px;
+      text-align: center;
     }
-    form {
+
+    .upload-form {
       background: #111;
-      padding: 30px;
+      padding: 25px;
       border-radius: 10px;
       box-shadow: 0 0 10px #d4af37;
       display: flex;
       flex-direction: column;
       gap: 15px;
-      width: 300px;
+      width: 100%;
+      max-width: 320px;
     }
-    input[type="file"] {
+
+    .upload-form input[type="file"] {
       color: #d4af37;
-    }
-    button {
+      background: #222;
       padding: 10px;
+      border: 1px solid #444;
+      border-radius: 5px;
+    }
+
+    .upload-form button {
+      padding: 12px;
       background: #d4af37;
       color: #000;
       border: none;
       border-radius: 5px;
       font-weight: bold;
+      cursor: pointer;
     }
-    a {
+
+    .upload-container a {
       color: #d4af37;
-      margin-top: 10px;
+      text-decoration: none;
+      margin-top: 15px;
+      display: inline-block;
+    }
+
+    @media screen and (max-width: 480px) {
+      .upload-form {
+        padding: 20px 15px;
+      }
     }
   </style>
 </head>
 <body>
-  <h2>Upload Gallery Image</h2>
-  <form action="/upload-gallery" method="POST" enctype="multipart/form-data">
-    <input type="file" name="image" required />
-    <button type="submit">Upload</button>
-  </form>
-  <a href="/upload.html">⬅ Back to Upload Options</a>
+  <div class="upload-wrapper">
+    <header class="upload-header">
+      <img src="/images/Royal_touch_logo.png" alt="Royal Interior Logo" class="logo" />
+    </header>
+
+    <main class="upload-container">
+      <h2>Upload Gallery Image</h2>
+      <form action="/upload-gallery" method="POST" enctype="multipart/form-data" class="upload-form">
+        <input type="file" name="image" required />
+        <button type="submit">Upload</button>
+      </form>
+      <a href="/upload.html">⬅ Back to Upload Options</a>
+    </main>
+  </div>
 </body>
 </html>

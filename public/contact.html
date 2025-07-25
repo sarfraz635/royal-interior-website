@@ -1,36 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact - Royal Interior</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css" />
   <script src="js/main.js" defer></script>
 </head>
 <body>
+  <!-- Header -->
   <header class="header">
-    <img src="images/Royal_touch_logo.png" alt="Royal Interior Logo" class="logo">
-    <nav class="navbar">
-      <a href="index.html">Home</a>
-      <a href="services.html">Services</a>
-      <a href="products.html">Products</a>
-      <a href="portfolio.html">Portfolio</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="contact.html">Contact</a>
-    </nav>
+    <div class="container">
+      <img src="images/Royal_touch_logo.png" alt="Royal Interior Logo" class="logo" />
+      <button class="menu-toggle" id="menu-toggle">☰</button>
+      <nav class="navbar">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="products.html">Products</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="side-drawer" id="side-drawer">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="products.html">Products</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="overlay" id="overlay"></div>
+    </div>
   </header>
 
+  <!-- Contact Section -->
   <section class="Contact">
     <h2>Contact Us</h2>
     <p>We'd love to hear about your interior requirements. Let's connect!</p>
     <form class="contact-form" action="mailto:msarfraz635@gmail.com" method="post" enctype="text/plain">
-      <input type="text"  placeholder="Your Name" required />
+      <input type="text" placeholder="Your Name" required />
       <input type="email" placeholder="Your Email" required />
       <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
       <button type="submit">Send Message</button>
     </form>
   </section>
 
+  <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <p>&copy; 2025 Royal Interior. All rights reserved.</p>
@@ -42,7 +57,45 @@
     </div>
   </footer>
 
+  <!-- Floating Buttons -->
   <a href="https://wa.me/918092177059" class="whatsapp-float">WA</a>
   <button id="scrollTopBtn">↑</button>
+
+  <!-- Side Drawer & Scroll Button Logic -->
+  <script>
+    window.onload = () => {
+      // Side drawer toggle
+      const menuToggle = document.getElementById('menu-toggle');
+      const sideDrawer = document.getElementById('side-drawer');
+      const overlay = document.getElementById('overlay');
+
+      if (menuToggle && sideDrawer && overlay) {
+        menuToggle.addEventListener('click', () => {
+          sideDrawer.classList.toggle('active');
+          overlay.classList.toggle('active');
+        });
+
+        overlay.addEventListener('click', () => {
+          sideDrawer.classList.remove('active');
+          overlay.classList.remove('active');
+        });
+      }
+
+      // Scroll to top button
+      const scrollBtn = document.getElementById("scrollTopBtn");
+      window.onscroll = function () {
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+          scrollBtn.style.display = "block";
+        } else {
+          scrollBtn.style.display = "none";
+        }
+      };
+      if (scrollBtn) {
+        scrollBtn.onclick = function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+      }
+    };
+  </script>
 </body>
 </html>

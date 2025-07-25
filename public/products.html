@@ -6,20 +6,69 @@
   <title>Products - Royal Interior</title>
   <link rel="stylesheet" href="css/style.css" />
   <script src="js/main.js" defer></script>
+  <script>
+    window.onload = () => {
+      // Side drawer toggle
+      const menuToggle = document.getElementById('menu-toggle');
+      const sideDrawer = document.getElementById('side-drawer');
+      const overlay = document.getElementById('overlay');
+
+      if (menuToggle && sideDrawer && overlay) {
+        menuToggle.addEventListener('click', () => {
+          sideDrawer.classList.toggle('active');
+          overlay.classList.toggle('active');
+        });
+
+        overlay.addEventListener('click', () => {
+          sideDrawer.classList.remove('active');
+          overlay.classList.remove('active');
+        });
+      }
+
+      // Scroll-to-top button logic
+      const scrollBtn = document.getElementById("scrollTopBtn");
+      window.onscroll = function () {
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+          scrollBtn.style.display = "block";
+        } else {
+          scrollBtn.style.display = "none";
+        }
+      };
+      if (scrollBtn) {
+        scrollBtn.onclick = function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+      }
+    };
+  </script>
 </head>
 <body>
+  <!-- Header -->
   <header class="header">
-    <img src="images/Royal_touch_logo.png" alt="Royal Interior Logo" class="logo" />
-    <nav class="navbar">
-      <a href="index.html">Home</a>
-      <a href="services.html">Services</a>
-      <a href="products.html">Products</a>
-      <a href="portfolio.html">Portfolio</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="contact.html">Contact</a>
-    </nav>
+    <div class="container">
+      <img src="images/Royal_touch_logo.png" alt="Royal Interior Logo" class="logo" />
+      <button class="menu-toggle" id="menu-toggle">☰</button>
+      <nav class="navbar">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="products.html">Products</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="side-drawer" id="side-drawer">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="products.html">Products</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="overlay" id="overlay"></div>
+    </div>
   </header>
 
+  <!-- Products Section -->
   <section>
     <h2>Our Premium Products</h2>
     <p>Explore high-quality materials and furnishings for your interior projects.</p>
@@ -47,6 +96,7 @@
     </div>
   </section>
 
+  <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <p>&copy; 2025 Royal Interior. All rights reserved.</p>
@@ -58,6 +108,7 @@
     </div>
   </footer>
 
+  <!-- Floating Buttons -->
   <a href="https://wa.me/918092177059" class="whatsapp-float">WA</a>
   <button id="scrollTopBtn">↑</button>
 </body>

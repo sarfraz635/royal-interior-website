@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <title>Upload Success</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/css/style.css" />
+  <script src="/js/main.js" defer></script>
   <script>
     window.onload = () => {
+      // Dynamic title & buttons based on type
       const params = new URLSearchParams(window.location.search);
       const type = params.get("type");
-
       const title = document.getElementById("success-title");
-      const btn1 = document.getElementById("btn-dashboard");
       const btn2 = document.getElementById("btn-target");
 
       if (type === "gallery") {
@@ -25,22 +26,62 @@
         title.innerText = "✅ Image Uploaded Successfully!";
         btn2.style.display = "none";
       }
+
+      // Side drawer logic
+      const menuToggle = document.getElementById('menu-toggle');
+      const sideDrawer = document.getElementById('side-drawer');
+      const overlay = document.getElementById('overlay');
+
+      if (menuToggle && sideDrawer && overlay) {
+        menuToggle.addEventListener('click', () => {
+          sideDrawer.classList.toggle('active');
+          overlay.classList.toggle('active');
+        });
+        overlay.addEventListener('click', () => {
+          sideDrawer.classList.remove('active');
+          overlay.classList.remove('active');
+        });
+      }
+
+      // Scroll-to-top button
+      const scrollBtn = document.getElementById("scrollTopBtn");
+      window.onscroll = function () {
+        scrollBtn.style.display = (document.documentElement.scrollTop > 100) ? "block" : "none";
+      };
+      if (scrollBtn) {
+        scrollBtn.onclick = function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+      }
     };
   </script>
 </head>
 <body>
   <header class="header">
-    <img src="/images/Royal_touch_logo.png" alt="Royal Interior Logo" class="logo" />
-    <nav class="navbar">
-      <a href="/index.html">Home</a>
-      <a href="/services.html">Services</a>
-      <a href="/products.html">Products</a>
-      <a href="/portfolio.html">Portfolio</a>
-      <a href="/gallery.html">Gallery</a>
-      <a href="/contact.html">Contact</a>
-    </nav>
+    <div class="container">
+      <img src="/images/Royal_touch_logo.png" alt="Royal Interior Logo" class="logo" />
+      <button class="menu-toggle" id="menu-toggle">☰</button>
+      <nav class="navbar">
+        <a href="/index.html">Home</a>
+        <a href="/services.html">Services</a>
+        <a href="/products.html">Products</a>
+        <a href="/portfolio.html">Portfolio</a>
+        <a href="/gallery.html">Gallery</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+      <div class="side-drawer" id="side-drawer">
+        <a href="/index.html">Home</a>
+        <a href="/services.html">Services</a>
+        <a href="/products.html">Products</a>
+        <a href="/portfolio.html">Portfolio</a>
+        <a href="/gallery.html">Gallery</a>
+        <a href="/contact.html">Contact</a>
+      </div>
+      <div class="overlay" id="overlay"></div>
+    </div>
   </header>
 
+  <!-- Success Section -->
   <section class="Contact">
     <h2 id="success-title" style="color: white;"></h2>
     <div style="margin-top: 20px;">
@@ -49,6 +90,7 @@
     </div>
   </section>
 
+  <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <p>&copy; 2025 Royal Interior. All rights reserved.</p>
@@ -60,6 +102,7 @@
     </div>
   </footer>
 
+  <!-- Floating Buttons -->
   <a href="https://wa.me/918092177059" class="whatsapp-float">WA</a>
   <button id="scrollTopBtn">↑</button>
 </body>
