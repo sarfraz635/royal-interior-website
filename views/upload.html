@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Dashboard - Upload Options</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    body {
+      text-align: center;
+      background: #000;
+      color: #d4af37;
+      font-family: 'Poppins', sans-serif;
+      padding-top: 80px;
+    }
+    .upload-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 300px;
+      margin: auto;
+    }
+    .upload-buttons a {
+      padding: 15px;
+      background: #d4af37;
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+    .upload-buttons a:hover {
+      background: #b8992e;
+    }
+  </style>
+</head>
+<body>
+  <h1>Admin Upload Dashboard</h1>
+  <div class="upload-buttons">
+    <a href="/upload_gallery.html">Upload to Gallery</a>
+    <a href="/upload_portfolio.html">Upload to Portfolio</a>
+    <a href="/logout">Logout</a>
+    <a href="/gallery.html">View Gallery</a>
+    <a href="/portfolio.html">View Portfolio</a>
+  </div>
+</body>
+</html>

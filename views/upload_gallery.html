@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Upload Gallery Image - Admin Panel</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #000;
+      color: #d4af37;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    form {
+      background: #111;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #d4af37;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 300px;
+    }
+    input[type="file"] {
+      color: #d4af37;
+    }
+    button {
+      padding: 10px;
+      background: #d4af37;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    a {
+      color: #d4af37;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Upload Gallery Image</h2>
+  <form action="/upload-gallery" method="POST" enctype="multipart/form-data">
+    <input type="file" name="image" required />
+    <button type="submit">Upload</button>
+  </form>
+  <a href="/upload.html">⬅ Back to Upload Options</a>
+</body>
+</html>

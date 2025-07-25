@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio - Royal Interior</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/main.js" defer></script>
+  <script>
+    // Load dynamic images from /uploads/portfolio folder
+    async function loadPortfolioImages() {
+      const res = await fetch('/images/portfolio');
+      const files = await res.json();
+      const container = document.getElementById('dynamic-portfolio');
+
+      if (files.length === 0) {
+        container.innerHTML = "<p>No uploaded portfolio images yet.</p>";
+      } else {
+        files.forEach(file => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <img src="/uploads/portfolio/${file}" alt="${file}" class="zoom-on-hover" />
+            <h3>${file}</h3>
+          `;
+          container.appendChild(card);
+        });
+      }
+    }
+
+    window.onload = loadPortfolioImages;
+  </script>
+</head>
+<body>
+  <header class="header">
+    <img src="images/Royal_touch_logo.png" alt="Royal Interior Logo" class="logo" />
+    <nav class="navbar">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="products.html">Products</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <section>
+    <h2>Our Portfolio</h2>
+    <p>Take a look at some of our beautifully completed interior projects.</p>
+
+    <!-- Static examples -->
+    <div class="portfolio-grid">
+      <div class="card">
+        <img src="images/project1.jpg" alt="Project 1">
+        <h3>Living Space Design & Detailing</h3>
+      </div>
+      <div class="card">
+        <img src="images/project2.jpg" alt="Project 2">
+        <h3>Dining Space Design & Detailing</h3>
+      </div>
+      <div class="card">
+        <img src="images/project3.jpg" alt="Project 3">
+        <h3>Modular Kitchen Design & Detailing</h3>
+      </div>
+      <div class="card">
+        <img src="images/project4.jpeg" alt="Project 4">
+        <h3>Master Bedroom Design & Detailing</h3>
+      </div>
+    </div>
+
+    <!-- Dynamic uploads -->
+    <h2 style="margin-top: 40px;">Uploaded Projects</h2>
+    <div class="portfolio-grid" id="dynamic-portfolio">
+      <!-- Dynamic content goes here -->
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Royal Interior. All rights reserved.</p>
+      <div class="socials">
+        <a href="https://www.instagram.com/royaltouch_interior.jsr/">Instagram</a>
+        <a href="https://www.facebook.com/msarfraz635">Facebook</a>
+        <a href="https://wa.me/918092177059">WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/918092177059" class="whatsapp-float">WA</a>
+  <button id="scrollTopBtn">↑</button>
+</body>
+</html>

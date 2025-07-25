@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Upload Success</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <script>
+    window.onload = () => {
+      const params = new URLSearchParams(window.location.search);
+      const type = params.get("type");
+
+      const title = document.getElementById("success-title");
+      const btn1 = document.getElementById("btn-dashboard");
+      const btn2 = document.getElementById("btn-target");
+
+      if (type === "gallery") {
+        title.innerText = "✅ Gallery Image Uploaded Successfully!";
+        btn2.href = "/gallery.html";
+        btn2.innerText = "Go to Gallery";
+      } else if (type === "portfolio") {
+        title.innerText = "✅ Portfolio Image Uploaded Successfully!";
+        btn2.href = "/portfolio.html";
+        btn2.innerText = "Go to Portfolio";
+      } else {
+        title.innerText = "✅ Image Uploaded Successfully!";
+        btn2.style.display = "none";
+      }
+    };
+  </script>
+</head>
+<body>
+  <header class="header">
+    <img src="/images/Royal_touch_logo.png" alt="Royal Interior Logo" class="logo" />
+    <nav class="navbar">
+      <a href="/index.html">Home</a>
+      <a href="/services.html">Services</a>
+      <a href="/products.html">Products</a>
+      <a href="/portfolio.html">Portfolio</a>
+      <a href="/gallery.html">Gallery</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <section class="Contact">
+    <h2 id="success-title" style="color: white;"></h2>
+    <div style="margin-top: 20px;">
+      <a href="/upload.html" class="btn" id="btn-dashboard">Back to Dashboard</a>
+      <a href="#" class="btn" id="btn-target">Go</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Royal Interior. All rights reserved.</p>
+      <div class="socials">
+        <a href="https://www.instagram.com/royaltouch_interior.jsr/">Instagram</a>
+        <a href="https://www.facebook.com/msarfraz635">Facebook</a>
+        <a href="https://wa.me/918092177059">WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/918092177059" class="whatsapp-float">WA</a>
+  <button id="scrollTopBtn">↑</button>
+</body>
+</html>

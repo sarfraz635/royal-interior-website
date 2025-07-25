@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gallery - Royal Touch</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script>
+    // Fetch image filenames from the server and display them
+    async function loadImages() {
+      const res = await fetch('/images/gallery'); // Fetches from the right route
+      const files = await res.json();
+      const gallery = document.getElementById('gallery');
+
+      if (files.length === 0) {
+        gallery.innerHTML = "<p>No images found.</p>";
+      } else {
+        files.forEach(file => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <img src="/uploads/gallery/${file}" alt="${file}" class="zoom-on-hover" />
+            <h3>${file}</h3>
+          `;
+          gallery.appendChild(card);
+        });
+      }
+    }
+
+    window.onload = loadImages;
+  </script>
+</head>
+<body>
+  <header class="header">
+    <img src="images/Royal_touch_logo.png" alt="Royal Interior Logo" class="logo">
+    <nav class="navbar">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="products.html">Products</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <section>
+    <h2>Uploaded Work Gallery</h2>
+    <div class="portfolio-grid" id="gallery">
+      <!-- Images will load here -->
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Royal Interior. All rights reserved.</p>
+      <div class="socials">
+        <a href="https://www.instagram.com/royaltouch_interior.jsr/">Instagram</a>
+        <a href="https://www.facebook.com/msarfraz635">Facebook</a>
+        <a href="https://wa.me/918092177059">WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/918092177059" class="whatsapp-float">WA</a>
+  <button id="scrollTopBtn">↑</button>
+</body>
+</html>

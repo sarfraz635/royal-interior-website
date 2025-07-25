@@ -1,0 +1,214 @@
+/* style.css */
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #000;
+  color: #d4af37;
+}
+
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+/* Header */
+.header {
+  background: #111;
+  padding: 10px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+.logo {
+  width: 100px;
+  display: block;
+  margin: auto;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.navbar a {
+  text-decoration: none;
+  color: #d4af37;
+  font-weight: bold;
+}
+
+/* Hero */
+.hero {
+  background: url('/public/images/Background.jpeg') no-repeat center center/cover;
+  height: 90vh;
+  display: flow-root;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+}
+.hero-text h1 {
+  font-size: 48px;
+}
+.hero-text p {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+.btn {
+  background: #d4af37;
+  color: #000;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+}
+.Contact {
+  background: url('/public/images/Contact Background.jpg') no-repeat center center/cover;
+  height: 90vh;
+  display:flow-root;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #000;
+}
+
+/* Sections */
+section {
+  padding: 60px 20px;
+  text-align: center;
+}
+.service-grid,
+.product-grid,
+.portfolio-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-top: 30px;
+}
+
+/* Card */
+.card {
+  background: #222;
+  border: 1px solid #444;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+.card:hover {
+  transform: scale(1.05);
+}
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.card:hover img {
+  transform: scale(1.1);
+}
+.card h3 {
+  margin: 10px 0;
+  font-size: 18px;
+  color: #d4af37;
+}
+
+/* Full Image Overlay */
+.fullscreen-image {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.fullscreen-image img {
+  max-width: 90%;
+  max-height: 85%;
+  border: 5px solid #d4af37;
+  border-radius: 10px;
+}
+
+/* Contact Form */
+.contact-form {
+  max-width: 600px;
+  margin: 30px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.contact-form input,
+.contact-form textarea {
+  padding: 10px;
+  border: 1px solid #444;
+  background: #111;
+  color: #d4af37;
+  font-family: 'Poppins', sans-serif;
+  border-radius: 5px;
+}
+.contact-form button {
+  background: #d4af37;
+  color: #000;
+  padding: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+/* CTA */
+.cta {
+  background: #111;
+}
+
+/* Footer */
+.footer {
+  background: #000;
+  color: #999;
+  padding: 20px 0;
+}
+.footer .socials a {
+  color: #d4af37;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+/* Scroll to top */
+#scrollTopBtn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #d4af37;
+  color: #000;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 50%;
+  display: none;
+  cursor: pointer;
+  z-index: 999;
+}
+
+/* WhatsApp Button */
+.whatsapp-float {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  background: #25D366;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 50%;
+  text-decoration: none;
+  font-weight: bold;
+  z-index: 999;
+}
