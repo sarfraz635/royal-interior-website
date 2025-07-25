@@ -46,7 +46,7 @@ h1, h2 {
 
 /* Hero */
 .hero {
-  background: url('/public/images/Background.jpeg') no-repeat center center/cover;
+  background: url('../images/Background.jpeg') no-repeat center center/cover;
   height: 90vh;
   display: flow-root;
   align-items: center;
@@ -72,7 +72,7 @@ h1, h2 {
   border-radius: 8px;
 }
 .Contact {
-  background: url('/public/images/Contact Background.jpg') no-repeat center center/cover;
+  background: url('../images/Contact Background.jpg') no-repeat center center/cover;
   height: 90vh;
   display:flow-root;
   align-items: center;
