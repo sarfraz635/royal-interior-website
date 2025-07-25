@@ -73,9 +73,15 @@ app.get('/upload_portfolio.html', requireLogin, (req, res) => {
 });
 
 // Login handling
+// Define admin credentials from environment variables (or fallback defaults)
+const ADMIN_USER = process.env.ADMIN_USER || 'admin';
+const ADMIN_PASS = process.env.ADMIN_PASS || '1234';
+
+// Login route
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
-  if (username === 'admin' && password === '1234') {
+
+  if (username === ADMIN_USER && password === ADMIN_PASS) {
     req.session.loggedIn = true;
     res.redirect('/upload.html');
   } else {
