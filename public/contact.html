@@ -8,6 +8,7 @@
   <script src="js/main.js" defer></script>
 </head>
 <body>
+
   <!-- Header -->
   <header class="header">
     <div class="container">
@@ -21,17 +22,21 @@
         <a href="gallery.html">Gallery</a>
         <a href="contact.html">Contact</a>
       </nav>
-      <div class="side-drawer" id="side-drawer">
-        <a href="index.html">Home</a>
-        <a href="services.html">Services</a>
-        <a href="products.html">Products</a>
-        <a href="portfolio.html">Portfolio</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="contact.html">Contact</a>
-      </div>
-      <div class="overlay" id="overlay"></div>
     </div>
   </header>
+
+  <!-- Side Drawer Navigation (Moved outside .container and header) -->
+  <nav class="side-drawer" id="side-drawer">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="products.html">Products</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
 
   <!-- Contact Section -->
   <section class="Contact">
@@ -61,41 +66,5 @@
   <a href="https://wa.me/918092177059" class="whatsapp-float">WA</a>
   <button id="scrollTopBtn">↑</button>
 
-  <!-- Side Drawer & Scroll Button Logic -->
-  <script>
-    window.onload = () => {
-      // Side drawer toggle
-      const menuToggle = document.getElementById('menu-toggle');
-      const sideDrawer = document.getElementById('side-drawer');
-      const overlay = document.getElementById('overlay');
-
-      if (menuToggle && sideDrawer && overlay) {
-        menuToggle.addEventListener('click', () => {
-          sideDrawer.classList.toggle('active');
-          overlay.classList.toggle('active');
-        });
-
-        overlay.addEventListener('click', () => {
-          sideDrawer.classList.remove('active');
-          overlay.classList.remove('active');
-        });
-      }
-
-      // Scroll to top button
-      const scrollBtn = document.getElementById("scrollTopBtn");
-      window.onscroll = function () {
-        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-          scrollBtn.style.display = "block";
-        } else {
-          scrollBtn.style.display = "none";
-        }
-      };
-      if (scrollBtn) {
-        scrollBtn.onclick = function () {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
-      }
-    };
-  </script>
 </body>
 </html>

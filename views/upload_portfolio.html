@@ -48,7 +48,8 @@
       max-width: 320px;
     }
 
-    .upload-form input[type="file"] {
+    .upload-form input[type="file"],
+    .upload-form input[type="text"] {
       color: #d4af37;
       background: #222;
       padding: 10px;
@@ -73,6 +74,14 @@
       display: inline-block;
     }
 
+    #image-preview img {
+      display: none;
+      max-width: 100%;
+      margin-top: 10px;
+      border: 2px solid #d4af37;
+      border-radius: 5px;
+    }
+
     @media screen and (max-width: 480px) {
       .upload-form {
         padding: 20px 15px;
@@ -89,11 +98,33 @@
     <main class="upload-container">
       <h2>Upload Portfolio Image</h2>
       <form action="/upload-portfolio" method="POST" enctype="multipart/form-data" class="upload-form">
-        <input type="file" name="image" required />
+        <input type="text" name="title" placeholder="Enter image title" required />
+        <input type="file" name="image" accept="image/*" onchange="previewImage(event)" required />
+        <div id="image-preview">
+          <img id="preview" />
+        </div>
         <button type="submit">Upload</button>
       </form>
       <a href="/upload.html">⬅ Back to Upload Options</a>
     </main>
   </div>
+
+  <script>
+    function previewImage(event) {
+      const file = event.target.files[0];
+      const preview = document.getElementById('preview');
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          preview.src = e.target.result;
+          preview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      } else {
+        preview.src = '';
+        preview.style.display = 'none';
+      }
+    }
+  </script>
 </body>
 </html>

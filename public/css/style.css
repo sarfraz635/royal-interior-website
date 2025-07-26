@@ -108,24 +108,45 @@ section {
   border-radius: 10px;
   overflow: hidden;
   transition: transform 0.3s ease;
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
 }
 .card:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 .card img {
   width: 100%;
   height: 180px;
   object-fit: cover;
   transition: transform 0.3s ease;
+  cursor: pointer;
 }
 .card:hover img {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 .card h3 {
-  margin: 10px 0;
+  margin: 10px 0 5px;
   font-size: 18px;
   color: #d4af37;
+  padding: 0 10px;
+}
+
+/* Delete Button Below Image */
+.card .delete-btn {
+  margin: 8px auto 12px;
+  padding: 6px 14px;
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+.card .delete-btn:hover {
+  background-color: #c9302c;
 }
 
 /* Full Image Overlay */

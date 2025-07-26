@@ -2,108 +2,96 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Upload Success</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload Success</title>
   <link rel="stylesheet" href="/css/style.css" />
-  <script src="/js/main.js" defer></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #000;
+      color: #d4af37;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    header {
+      width: 100%;
+      padding: 15px 0;
+      background: #111;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    header .logo {
+      width: 100px;
+    }
+
+    h2 {
+      margin: 30px 20px 20px;
+      text-align: center;
+      font-size: 1.4rem;
+    }
+
+    .success-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 90%;
+      max-width: 300px;
+      margin-bottom: 30px;
+    }
+
+    .success-buttons a {
+      padding: 14px;
+      background: #d4af37;
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: background 0.3s ease;
+      text-align: center;
+    }
+
+    .success-buttons a:hover {
+      background: #b8992e;
+    }
+  </style>
+
   <script>
     window.onload = () => {
-      // Dynamic title & buttons based on type
       const params = new URLSearchParams(window.location.search);
       const type = params.get("type");
       const title = document.getElementById("success-title");
-      const btn2 = document.getElementById("btn-target");
+      const btnTarget = document.getElementById("btn-target");
 
       if (type === "gallery") {
         title.innerText = "✅ Gallery Image Uploaded Successfully!";
-        btn2.href = "/gallery.html";
-        btn2.innerText = "Go to Gallery";
+        btnTarget.href = "/gallery.html";
+        btnTarget.innerText = "Go to Gallery";
       } else if (type === "portfolio") {
         title.innerText = "✅ Portfolio Image Uploaded Successfully!";
-        btn2.href = "/portfolio.html";
-        btn2.innerText = "Go to Portfolio";
+        btnTarget.href = "/portfolio.html";
+        btnTarget.innerText = "Go to Portfolio";
       } else {
         title.innerText = "✅ Image Uploaded Successfully!";
-        btn2.style.display = "none";
-      }
-
-      // Side drawer logic
-      const menuToggle = document.getElementById('menu-toggle');
-      const sideDrawer = document.getElementById('side-drawer');
-      const overlay = document.getElementById('overlay');
-
-      if (menuToggle && sideDrawer && overlay) {
-        menuToggle.addEventListener('click', () => {
-          sideDrawer.classList.toggle('active');
-          overlay.classList.toggle('active');
-        });
-        overlay.addEventListener('click', () => {
-          sideDrawer.classList.remove('active');
-          overlay.classList.remove('active');
-        });
-      }
-
-      // Scroll-to-top button
-      const scrollBtn = document.getElementById("scrollTopBtn");
-      window.onscroll = function () {
-        scrollBtn.style.display = (document.documentElement.scrollTop > 100) ? "block" : "none";
-      };
-      if (scrollBtn) {
-        scrollBtn.onclick = function () {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
+        btnTarget.style.display = "none";
       }
     };
   </script>
 </head>
 <body>
-  <header class="header">
-    <div class="container">
-      <img src="/images/Royal_touch_logo.png" alt="Royal Interior Logo" class="logo" />
-      <button class="menu-toggle" id="menu-toggle">☰</button>
-      <nav class="navbar">
-        <a href="/index.html">Home</a>
-        <a href="/services.html">Services</a>
-        <a href="/products.html">Products</a>
-        <a href="/portfolio.html">Portfolio</a>
-        <a href="/gallery.html">Gallery</a>
-        <a href="/contact.html">Contact</a>
-      </nav>
-      <div class="side-drawer" id="side-drawer">
-        <a href="/index.html">Home</a>
-        <a href="/services.html">Services</a>
-        <a href="/products.html">Products</a>
-        <a href="/portfolio.html">Portfolio</a>
-        <a href="/gallery.html">Gallery</a>
-        <a href="/contact.html">Contact</a>
-      </div>
-      <div class="overlay" id="overlay"></div>
-    </div>
+  <header>
+    <img src="/images/Royal_touch_logo.png" alt="Royal Interior Logo" class="logo" />
   </header>
 
-  <!-- Success Section -->
-  <section class="Contact">
-    <h2 id="success-title" style="color: white;"></h2>
-    <div style="margin-top: 20px;">
-      <a href="/upload.html" class="btn" id="btn-dashboard">Back to Dashboard</a>
-      <a href="#" class="btn" id="btn-target">Go</a>
-    </div>
-  </section>
+  <h2 id="success-title">✅ Upload Successful!</h2>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; 2025 Royal Interior. All rights reserved.</p>
-      <div class="socials">
-        <a href="https://www.instagram.com/royaltouch_interior.jsr/">Instagram</a>
-        <a href="https://www.facebook.com/msarfraz635">Facebook</a>
-        <a href="https://wa.me/918092177059">WhatsApp</a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Floating Buttons -->
-  <a href="https://wa.me/918092177059" class="whatsapp-float">WA</a>
-  <button id="scrollTopBtn">↑</button>
+  <div class="success-buttons">
+    <a href="/upload.html" id="btn-dashboard">⬅ Back to Dashboard</a>
+    <a href="#" id="btn-target">Go</a>
+  </div>
 </body>
 </html>

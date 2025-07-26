@@ -11,6 +11,7 @@ const PORT = 3000;
 app.use(express.static('public'));
 app.use('/uploads', express.static('uploads'));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json()); // ✅ Needed for JSON in delete requests
 
 // Session setup
 app.use(session({
@@ -19,7 +20,7 @@ app.use(session({
   saveUninitialized: true
 }));
 
-// Authentication middleware
+// Auth middleware
 function requireLogin(req, res, next) {
   if (req.session.loggedIn) {
     next();
@@ -28,9 +29,8 @@ function requireLogin(req, res, next) {
   }
 }
 
-// === File Upload Configs ===
+// ==== File Upload Config ====
 
-// GALLERY storage
 const galleryStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     const dir = path.join(__dirname, 'uploads', 'gallery');
@@ -41,7 +41,6 @@ const galleryStorage = multer.diskStorage({
 });
 const uploadGallery = multer({ storage: galleryStorage });
 
-// PORTFOLIO storage
 const portfolioStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     const dir = path.join(__dirname, 'uploads', 'portfolio');
@@ -52,19 +51,17 @@ const portfolioStorage = multer.diskStorage({
 });
 const uploadPortfolio = multer({ storage: portfolioStorage });
 
-// === ROUTES ===
+// ==== Routes ====
 
 // Login page
 app.get('/login.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'login.html'));
 });
 
-// Admin dashboard page
+// Admin pages
 app.get('/upload.html', requireLogin, (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'upload.html'));
 });
-
-// Upload forms
 app.get('/upload_gallery.html', requireLogin, (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'upload_gallery.html'));
 });
@@ -72,15 +69,12 @@ app.get('/upload_portfolio.html', requireLogin, (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'upload_portfolio.html'));
 });
 
-// Login handling
-// Define admin credentials from environment variables (or fallback defaults)
+// Admin credentials
 const ADMIN_USER = process.env.ADMIN_USER || 'admin';
 const ADMIN_PASS = process.env.ADMIN_PASS || '1234';
 
-// Login route
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
-
   if (username === ADMIN_USER && password === ADMIN_PASS) {
     req.session.loggedIn = true;
     res.redirect('/upload.html');
@@ -89,7 +83,6 @@ app.post('/login', (req, res) => {
   }
 });
 
-// Logout route
 app.get('/logout', (req, res) => {
   req.session.destroy(err => {
     if (err) return res.send('Error logging out');
@@ -97,41 +90,99 @@ app.get('/logout', (req, res) => {
   });
 });
 
-// Upload POST (gallery)
+// Uploads
 app.post('/upload-gallery', requireLogin, uploadGallery.single('image'), (req, res) => {
   if (!req.file) return res.send('No file uploaded.');
+
+  const title = req.body.title || req.file.originalname;
+  const metadataPath = path.join(__dirname, 'uploads', 'gallery', 'metadata.json');
+
+  let metadata = [];
+  if (fs.existsSync(metadataPath)) {
+    metadata = JSON.parse(fs.readFileSync(metadataPath));
+  }
+
+  metadata.push({ filename: req.file.filename, title });
+  fs.writeFileSync(metadataPath, JSON.stringify(metadata, null, 2));
+
   res.redirect('/upload-success.html?type=gallery');
 });
 
-// Upload POST (portfolio)
 app.post('/upload-portfolio', requireLogin, uploadPortfolio.single('image'), (req, res) => {
   if (!req.file) return res.send('No file uploaded.');
+
+  const title = req.body.title || req.file.originalname;
+  const metadataPath = path.join(__dirname, 'uploads', 'portfolio', 'metadata.json');
+
+  let metadata = [];
+  if (fs.existsSync(metadataPath)) {
+    metadata = JSON.parse(fs.readFileSync(metadataPath));
+  }
+
+  metadata.push({ filename: req.file.filename, title });
+  fs.writeFileSync(metadataPath, JSON.stringify(metadata, null, 2));
+
   res.redirect('/upload-success.html?type=portfolio');
 });
 
-// Get uploaded gallery images
+// Gallery API
 app.get('/images/gallery', (req, res) => {
-  const dir = path.join(__dirname, 'uploads', 'gallery');
-  fs.readdir(dir, (err, files) => {
-    if (err) return res.status(500).json({ error: 'Failed to load images' });
-    const imageFiles = files.filter(file => /\.(jpg|jpeg|png|gif|webp)$/i.test(file));
-    res.json(imageFiles);
+  const metadataPath = path.join(__dirname, 'uploads', 'gallery', 'metadata.json');
+  const metadata = fs.existsSync(metadataPath) ? JSON.parse(fs.readFileSync(metadataPath)) : [];
+  res.json({
+    loggedIn: req.session.loggedIn || false,
+    files: metadata
   });
 });
 
-// Get uploaded portfolio images
+// Portfolio API
 app.get('/images/portfolio', (req, res) => {
-  const dir = path.join(__dirname, 'uploads', 'portfolio');
-  fs.readdir(dir, (err, files) => {
-    if (err) return res.status(500).json({ error: 'Failed to load images' });
-    const imageFiles = files.filter(file => /\.(jpg|jpeg|png|gif|webp)$/i.test(file));
-    res.json(imageFiles);
+  const metadataPath = path.join(__dirname, 'uploads', 'portfolio', 'metadata.json');
+  const metadata = fs.existsSync(metadataPath) ? JSON.parse(fs.readFileSync(metadataPath)) : [];
+  res.json({
+    loggedIn: req.session.loggedIn || false,
+    files: metadata
   });
 });
 
-// Route for root "/"
+// ==== 🆕 Delete Image Endpoint ====
+app.post('/delete-image', requireLogin, (req, res) => {
+  const { filename, folder } = req.body;
+
+  if (!filename || !folder) {
+    return res.status(400).json({ success: false, message: "Missing filename or folder" });
+  }
+
+  const filePath = path.join(__dirname, 'uploads', folder, filename);
+  const metadataPath = path.join(__dirname, 'uploads', folder, 'metadata.json');
+
+  // Delete image file
+  fs.unlink(filePath, err => {
+    if (err && err.code !== 'ENOENT') {
+      console.error('Failed to delete image:', err);
+      return res.status(500).json({ success: false, message: 'Failed to delete image' });
+    }
+
+    // Update metadata
+    let metadata = [];
+    if (fs.existsSync(metadataPath)) {
+      metadata = JSON.parse(fs.readFileSync(metadataPath));
+      metadata = metadata.filter(entry => entry.filename !== filename);
+      fs.writeFileSync(metadataPath, JSON.stringify(metadata, null, 2));
+    }
+
+    res.json({ success: true });
+  });
+});
+
+// Root route
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// Health check
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
 });
 
 // Start server

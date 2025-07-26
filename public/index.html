@@ -29,7 +29,7 @@
   </header>
 
   <!-- Side Drawer Navigation -->
-  <nav class="side-drawer" id="navbar">
+  <nav class="side-drawer" id="side-drawer">
     <a href="index.html">Home</a>
     <a href="services.html">Services</a>
     <a href="products.html">Products</a>
@@ -39,7 +39,7 @@
   </nav>
 
   <!-- Overlay -->
-  <div class="overlay" id="menu-overlay"></div>
+  <div class="overlay" id="overlay"></div>
 
   <!-- Hero Section -->
   <section class="hero">
@@ -108,23 +108,6 @@
 
   <!-- WhatsApp button -->
   <a href="https://wa.me/918092177059" class="whatsapp-float" target="_blank">Chat</a>
-
-  <!-- Toggle Script -->
-  <script>
-    const menuToggle = document.getElementById('menu-toggle');
-    const navbar = document.getElementById('navbar');
-    const overlay = document.getElementById('menu-overlay');
-
-    menuToggle.addEventListener('click', () => {
-      navbar.classList.toggle('active');
-      overlay.classList.toggle('active');
-    });
-
-    overlay.addEventListener('click', () => {
-      navbar.classList.remove('active');
-      overlay.classList.remove('active');
-    });
-  </script>
 
 </body>
 </html>
