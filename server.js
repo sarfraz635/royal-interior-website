@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3000;
 
 // Cloudinary dynamic folder storage
 const { getStorage } = require('./storage');
+const cloudinary = require('./cloudinary'); // ✅ Import Cloudinary instance
 
 // Middleware
 app.use(express.static('public'));
@@ -31,12 +32,10 @@ function requireLogin(req, res, next) {
 
 // ==== Routes ====
 
-// Login
 app.get('/login.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'login.html'));
 });
 
-// Admin panel pages
 app.get('/upload.html', requireLogin, (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'upload.html'));
 });
@@ -47,7 +46,6 @@ app.get('/upload_portfolio.html', requireLogin, (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'upload_portfolio.html'));
 });
 
-// Login process
 const ADMIN_USER = process.env.ADMIN_USER || 'admin';
 const ADMIN_PASS = process.env.ADMIN_PASS || '1234';
 
@@ -68,64 +66,77 @@ app.get('/logout', (req, res) => {
   });
 });
 
-// ==== Upload Gallery with Title ====
+// ==== Upload Gallery ====
 app.post('/upload-gallery', requireLogin, multer({ storage: getStorage('gallery') }).single('image'), (req, res) => {
   const title = req.body.title || req.file.originalname;
   const imageUrl = req.file.path;
+  const publicId = req.file.filename;
   const metadataPath = path.join(__dirname, 'uploads', 'gallery', 'metadata.json');
 
   const dir = path.dirname(metadataPath);
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
   let metadata = fs.existsSync(metadataPath) ? JSON.parse(fs.readFileSync(metadataPath)) : [];
-
-  metadata.push({
-    title,
-    url: imageUrl,
-    public_id: req.file.filename
-  });
+  metadata.push({ title, url: imageUrl, public_id: publicId });
 
   fs.writeFileSync(metadataPath, JSON.stringify(metadata, null, 2));
   res.redirect(`/upload-success.html?img=${encodeURIComponent(imageUrl)}&type=gallery`);
 });
 
-// ==== Upload Portfolio with Title ====
+// ==== Upload Portfolio ====
 app.post('/upload-portfolio', requireLogin, multer({ storage: getStorage('portfolio') }).single('image'), (req, res) => {
   const title = req.body.title || req.file.originalname;
   const imageUrl = req.file.path;
+  const publicId = req.file.filename;
   const metadataPath = path.join(__dirname, 'uploads', 'portfolio', 'metadata.json');
 
   const dir = path.dirname(metadataPath);
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
   let metadata = fs.existsSync(metadataPath) ? JSON.parse(fs.readFileSync(metadataPath)) : [];
-
-  metadata.push({
-    title,
-    url: imageUrl,
-    public_id: req.file.filename
-  });
+  metadata.push({ title, url: imageUrl, public_id: publicId });
 
   fs.writeFileSync(metadataPath, JSON.stringify(metadata, null, 2));
   res.redirect(`/upload-success.html?img=${encodeURIComponent(imageUrl)}&type=portfolio`);
 });
 
-// ==== API: View Metadata ====
+// ==== Get Image Metadata ====
 app.get('/images/gallery', (req, res) => {
   const metadataPath = path.join(__dirname, 'uploads', 'gallery', 'metadata.json');
   const metadata = fs.existsSync(metadataPath) ? JSON.parse(fs.readFileSync(metadataPath)) : [];
-  res.json({ files: metadata });
+  res.json({ files: metadata, loggedIn: req.session.loggedIn });
 });
 
 app.get('/images/portfolio', (req, res) => {
   const metadataPath = path.join(__dirname, 'uploads', 'portfolio', 'metadata.json');
   const metadata = fs.existsSync(metadataPath) ? JSON.parse(fs.readFileSync(metadataPath)) : [];
-  res.json({ files: metadata });
+  res.json({ files: metadata, loggedIn: req.session.loggedIn });
 });
 
-// ==== Placeholder for Delete Functionality ====
-app.post('/delete-image', requireLogin, (req, res) => {
-  res.status(501).json({ success: false, message: "Cloudinary delete not implemented yet" });
+// ==== DELETE Image from Cloudinary ====
+app.post('/delete-image', requireLogin, async (req, res) => {
+  const { public_id, folder } = req.body;
+  if (!public_id || !folder) {
+    return res.status(400).json({ success: false, message: "Missing required fields" });
+  }
+
+  const metadataPath = path.join(__dirname, 'uploads', folder, 'metadata.json');
+  let metadata = fs.existsSync(metadataPath) ? JSON.parse(fs.readFileSync(metadataPath)) : [];
+
+  const image = metadata.find(item => item.public_id === public_id);
+  if (!image) {
+    return res.status(404).json({ success: false, message: "Image not found in metadata" });
+  }
+
+  try {
+    await cloudinary.uploader.destroy(`${folder}/${public_id}`);
+    metadata = metadata.filter(item => item.public_id !== public_id);
+    fs.writeFileSync(metadataPath, JSON.stringify(metadata, null, 2));
+    res.json({ success: true });
+  } catch (err) {
+    console.error("Cloudinary deletion error:", err);
+    res.status(500).json({ success: false, message: "Failed to delete from Cloudinary" });
+  }
 });
 
 // ==== Static Routes ====
@@ -137,7 +148,6 @@ app.get('/health', (req, res) => {
   res.status(200).send('OK');
 });
 
-// ==== Start Server ====
 app.listen(PORT, () => {
   console.log(`✅ Server running at: http://localhost:${PORT}`);
 });

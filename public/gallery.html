@@ -22,7 +22,7 @@
         card.className = 'card';
 
         const img = document.createElement('img');
-        img.src = file.url;  // ✅ Fixed: Use Cloudinary URL
+        img.src = file.url;
         img.alt = file.title;
         img.className = 'zoom-on-hover';
 
@@ -36,12 +36,11 @@
           const deleteBtn = document.createElement('button');
           deleteBtn.className = 'delete-btn';
           deleteBtn.textContent = 'Delete';
-          deleteBtn.dataset.filename = file.filename;
+          deleteBtn.dataset.public_id = file.public_id;
           deleteBtn.dataset.folder = 'gallery';
 
           deleteBtn.addEventListener('click', async (e) => {
             e.preventDefault();
-            e.stopPropagation();
 
             if (!confirm("Are you sure you want to delete this image?")) return;
 
@@ -49,7 +48,7 @@
               method: 'POST',
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
-                filename: file.filename,
+                public_id: file.public_id,
                 folder: 'gallery'
               })
             });
