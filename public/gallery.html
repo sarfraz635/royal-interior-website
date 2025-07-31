@@ -6,6 +6,7 @@
   <title>Gallery - Royal Touch</title>
   <link rel="stylesheet" href="css/style.css" />
   <script src="js/main.js" defer></script>
+
   <script>
     async function loadImages() {
       const res = await fetch('/images/gallery');
@@ -36,11 +37,12 @@
           const deleteBtn = document.createElement('button');
           deleteBtn.className = 'delete-btn';
           deleteBtn.textContent = 'Delete';
-          deleteBtn.dataset.public_id = file.public_id;
+          deleteBtn.dataset.publicId = file.public_id;
           deleteBtn.dataset.folder = 'gallery';
 
           deleteBtn.addEventListener('click', async (e) => {
             e.preventDefault();
+            e.stopPropagation();
 
             if (!confirm("Are you sure you want to delete this image?")) return;
 
@@ -48,8 +50,8 @@
               method: 'POST',
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
-                public_id: file.public_id,
-                folder: 'gallery'
+                public_id: deleteBtn.dataset.publicId,
+                folder: deleteBtn.dataset.folder
               })
             });
 
@@ -121,7 +123,9 @@
   </footer>
 
   <!-- Floating Buttons -->
-  <a href="https://wa.me/918092177059" class="whatsapp-float"><img src="images/whatsapp.png" alt="Chat" style="width: 35px; height: 30px;"></a>
+  <a href="https://wa.me/918092177059" class="whatsapp-float">
+    <img src="images/whatsapp.png" alt="Chat" style="width: 35px; height: 30px;">
+  </a>
   <button id="scrollTopBtn">↑</button>
 </body>
 </html>
