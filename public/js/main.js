@@ -2,15 +2,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // ==== Scroll-to-top button ====
   const scrollTopBtn = document.getElementById("scrollTopBtn");
 
-  window.addEventListener("scroll", () => {
-    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-      scrollTopBtn.style.display = "block";
-    } else {
-      scrollTopBtn.style.display = "none";
-    }
-  });
-
   if (scrollTopBtn) {
+    window.addEventListener("scroll", () => {
+      const show = document.body.scrollTop > 200 || document.documentElement.scrollTop > 200;
+      scrollTopBtn.style.display = show ? "block" : "none";
+    });
+
     scrollTopBtn.addEventListener("click", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
@@ -42,8 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!filename || !folder || !card) return;
 
-      const confirmDelete = confirm(`Are you sure you want to delete "${filename}"?`);
-      if (!confirmDelete) return;
+      if (!confirm(`Are you sure you want to delete "${filename}"?`)) return;
 
       try {
         const res = await fetch("/delete-image", {
@@ -57,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = await res.json();
 
         if (res.ok && data.success) {
-          card.remove(); // 🧹 remove from DOM
+          card.remove();
           alert("Image deleted successfully.");
         } else {
           alert(data.message || "Failed to delete image.");
@@ -75,7 +71,7 @@ function enableImageLightbox(selector) {
   const images = document.querySelectorAll(selector);
   images.forEach((img) => {
     if (!img.dataset.lightboxBound) {
-      img.dataset.lightboxBound = "true"; // Prevent rebinding
+      img.dataset.lightboxBound = "true";
 
       img.addEventListener("click", () => {
         const existing = document.getElementById("fullscreen-overlay");
@@ -119,12 +115,10 @@ function enableImageLightbox(selector) {
 
 // ==== Initialize Lightbox on Static and Dynamic Content ====
 window.addEventListener("load", () => {
-  // Static grids
-  enableImageLightbox(".portfolio-grid img");
-  enableImageLightbox(".service-grid img");
-  enableImageLightbox(".product-grid img");
+  [".portfolio-grid img", ".service-grid img", ".product-grid img"].forEach(selector =>
+    enableImageLightbox(selector)
+  );
 
-  // Observe for dynamically added content (e.g., uploaded gallery or portfolio images)
   const gridsToObserve = document.querySelectorAll(".portfolio-grid, .gallery-grid");
   gridsToObserve.forEach((grid) => {
     const observer = new MutationObserver(() => {

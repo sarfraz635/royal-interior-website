@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Upload Success</title>
   <link rel="stylesheet" href="/css/style.css" />
+  <meta name="description"
+    content="Confirmation page for successful image uploads to Royal Interior's portfolio or gallery." />
   <style>
     body {
       margin: 0;
@@ -27,6 +30,7 @@
 
     header .logo {
       width: 100px;
+      height: auto;
     }
 
     h2 {
@@ -59,15 +63,12 @@
       background: #b8992e;
     }
   </style>
-
   <script>
     window.onload = () => {
       const params = new URLSearchParams(window.location.search);
       const type = params.get("type");
       const title = document.getElementById("success-title");
-      const btnTarget = document.getElementById("btn-target");
-
-      if (type === "gallery") {
+      const btnTarget = document.getElementById("btn-target"); if (type === "gallery") {
         title.innerText = "✅ Gallery Image Uploaded Successfully!";
         btnTarget.href = "/gallery.html";
         btnTarget.innerText = "Go to Gallery";
@@ -80,18 +81,21 @@
         btnTarget.style.display = "none";
       }
     };
+
   </script>
 </head>
+
 <body>
   <header>
-    <a href="/views/upload.html"><img src="images/Royal_touch_logo.png" alt="Royal Touch Logo" class="logo"></a>
+    <a href="/views/upload.html">
+      <img src="images/Royal_touch_logo.png" alt="Royal Touch Logo" class="logo" width="100" height="auto">
+    </a>
   </header>
-
   <h2 id="success-title">✅ Upload Successful!</h2>
-
   <div class="success-buttons">
     <a href="/upload.html" id="btn-dashboard">⬅ Back to Dashboard</a>
     <a href="#" id="btn-target">Go</a>
   </div>
 </body>
+
 </html>

@@ -7,7 +7,8 @@ body {
   color: #d4af37;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-family: 'Playfair Display', serif;
 }
 
@@ -28,8 +29,9 @@ h1, h2 {
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
+
 .logo {
   width: 100px;
   height: auto;
@@ -42,6 +44,7 @@ h1, h2 {
   gap: 20px;
   flex-wrap: wrap;
 }
+
 .navbar a {
   text-decoration: none;
   color: #d4af37;
@@ -59,13 +62,16 @@ h1, h2 {
   color: #fff;
   flex-direction: column;
 }
+
 .hero-text h1 {
   font-size: 48px;
 }
+
 .hero-text p {
   font-size: 20px;
   margin-bottom: 20px;
 }
+
 .btn {
   background: #d4af37;
   color: #000;
@@ -76,6 +82,8 @@ h1, h2 {
   text-decoration: none;
   border-radius: 8px;
 }
+
+/* Contact Section */
 .Contact {
   background: url('../images/Contact Background.jpg') no-repeat center center/cover;
   height: 90vh;
@@ -88,10 +96,14 @@ h1, h2 {
 }
 
 /* Sections */
-section {
+section,
+.services,
+.products,
+.portfolio {
   padding: 60px 20px;
   text-align: center;
 }
+
 .service-grid,
 .product-grid,
 .portfolio-grid {
@@ -113,9 +125,11 @@ section {
   align-items: center;
   padding: 0;
 }
+
 .card:hover {
   transform: scale(1.03);
 }
+
 .card img {
   width: 100%;
   height: 180px;
@@ -123,9 +137,11 @@ section {
   transition: transform 0.3s ease;
   cursor: pointer;
 }
+
 .card:hover img {
   transform: scale(1.05);
 }
+
 .card h3 {
   margin: 10px 0 5px;
   font-size: 18px;
@@ -145,6 +161,7 @@ section {
   font-weight: 500;
   transition: background-color 0.2s ease;
 }
+
 .card .delete-btn:hover {
   background-color: #c9302c;
 }
@@ -152,14 +169,17 @@ section {
 /* Full Image Overlay */
 .fullscreen-image {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
 }
+
 .fullscreen-image img {
   max-width: 90%;
   max-height: 85%;
@@ -175,6 +195,7 @@ section {
   flex-direction: column;
   gap: 15px;
 }
+
 .contact-form input,
 .contact-form textarea {
   padding: 10px;
@@ -184,6 +205,7 @@ section {
   font-family: 'Poppins', sans-serif;
   border-radius: 5px;
 }
+
 .contact-form button {
   background: #d4af37;
   color: #000;
@@ -197,6 +219,8 @@ section {
 /* CTA */
 .cta {
   background: #111;
+  padding: 60px 20px;
+  text-align: center;
 }
 
 /* Footer */
@@ -205,13 +229,13 @@ section {
   color: #999;
   padding: 20px 0;
 }
+
 .footer .socials a {
   color: #d4af37;
   margin: 0 10px;
   text-decoration: none;
 }
 
-/* Footer Social Icons */
 .footer .socials img {
   width: 24px;
   height: 24px;
@@ -244,9 +268,26 @@ section {
   font-weight: bold;
   z-index: 999;
 }
+
 .whatsapp-float img {
   width: 35px;
   height: 30px;
+}
+
+/* Upload Success Page */
+.success-buttons a {
+  padding: 14px;
+  background: #d4af37;
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+  text-align: center;
+}
+
+.success-buttons a:hover {
+  background: #b8992e;
 }
 
 /* === Mobile Hamburger Button === */
@@ -277,13 +318,15 @@ section {
   justify-content: flex-start;
   padding-top: 70px;
   padding-left: 20px;
-  box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
   transition: right 0.3s ease;
   z-index: 1001;
 }
+
 .side-drawer.active {
   right: 0;
 }
+
 .side-drawer a {
   padding: 15px 0;
   color: #d4af37;
@@ -291,6 +334,7 @@ section {
   font-weight: bold;
   width: 100%;
 }
+
 .side-drawer a:hover {
   background-color: #222;
 }
@@ -298,15 +342,17 @@ section {
 /* === Background Overlay === */
 .overlay {
   position: fixed;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.3s ease;
   z-index: 1000;
 }
+
 .overlay.active {
   visibility: visible;
   opacity: 1;
@@ -322,10 +368,26 @@ section {
   .menu-toggle {
     display: block;
   }
+
   .navbar {
     display: none;
   }
+
   .side-drawer {
     display: flex;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .hero-text h1 {
+    font-size: 32px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  .card h3 {
+    font-size: 16px;
   }
 }

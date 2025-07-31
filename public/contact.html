@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact - Royal Interior</title>
+  <title>Contact - Royal Interior</title> <!-- Stylesheet & Fonts -->
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&display=swap"
+    rel="stylesheet"> <!-- JS Script -->
   <script src="js/main.js" defer></script>
 </head>
-<body>
 
+<body>
   <!-- Header -->
   <header class="header">
     <div class="container">
-      <a href="index.html"><img src="images/Royal_touch_logo.png" alt="Royal Touch Logo" class="logo"></a>
+      <a href="index.html"><img src="images/Royal_touch_logo.png" alt="Royal Touch Logo" class="logo" width="120"
+          height="60"></a>
       <button class="menu-toggle" id="menu-toggle">☰</button>
       <nav class="navbar">
         <a href="index.html">Home</a>
@@ -23,9 +29,7 @@
         <a href="contact.html">Contact</a>
       </nav>
     </div>
-  </header>
-
-  <!-- Side Drawer Navigation (Moved outside .container and header) -->
+  </header> <!-- Side Drawer Navigation -->
   <nav class="side-drawer" id="side-drawer">
     <a href="index.html">Home</a>
     <a href="services.html">Services</a>
@@ -33,39 +37,37 @@
     <a href="portfolio.html">Portfolio</a>
     <a href="gallery.html">Gallery</a>
     <a href="contact.html">Contact</a>
-  </nav>
-
-  <!-- Overlay -->
-  <div class="overlay" id="overlay"></div>
-
-  <!-- Contact Section -->
+  </nav> <!-- Overlay -->
+  <div class="overlay" id="overlay"></div> <!-- Contact Section -->
   <section class="Contact">
     <h2>Contact Us</h2>
     <p>We'd love to hear about your interior requirements. Let's connect!</p>
     <form class="contact-form" action="mailto:msarfraz635@gmail.com" method="post" enctype="text/plain">
-      <input type="text" placeholder="Your Name" required />
-      <input type="email" placeholder="Your Email" required />
+      <input type="text" placeholder="Your Name" name="name" required />
+      <input type="email" placeholder="Your Email" name="email" required />
       <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
       <button type="submit">Send Message</button>
     </form>
-  </section>
-
-  <!-- Footer -->
+  </section> <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <p>&copy; 2025 Royal Interior. All rights reserved.</p>
       <div class="socials">
-        <a href="https://www.instagram.com/royaltouch_interior.jsr/"><img src="images/instagram.png" alt="Instagram" style="width: 24px; height: 24px;"></a>
-        <a href="https://www.facebook.com/msarfraz635"><img src="images/facebook.png" alt="Facebook" style="width: 24px; height: 24px;"></a>
-        <a href="tel:+918092177059"><img src="images/mobile.png" alt="Contact Us" style="width: 24px; height: 24px;"></a>
-        
+        <a href="https://www.instagram.com/royaltouch_interior.jsr/">
+          <img src="images/instagram.png" alt="Instagram" width="24" height="24">
+        </a>
+        <a href="https://www.facebook.com/msarfraz635">
+          <img src="images/facebook.png" alt="Facebook" width="24" height="24">
+        </a>
+        <a href="tel:+918092177059">
+          <img src="images/mobile.png" alt="Contact Us" width="24" height="24">
+        </a>
       </div>
     </div>
-  </footer>
-
-  <!-- Floating Buttons -->
-  <a href="https://wa.me/918092177059" class="whatsapp-float"><img src="images/whatsapp.png" alt="Chat" style="width: 35px; height: 30px;"></a>
+  </footer> <!-- Floating Buttons --> <a href="https://wa.me/918092177059" class="whatsapp-float">
+    <img src="images/whatsapp.png" alt="Chat" width="35" height="30">
+  </a>
   <button id="scrollTopBtn">↑</button>
-
 </body>
+
 </html>

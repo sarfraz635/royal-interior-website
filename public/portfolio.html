@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Explore our premium interior design portfolio showcasing beautiful living rooms, kitchens, bedrooms, and more." />
   <title>Portfolio - Royal Interior</title>
+  <link rel="preload" as="image" href="images/Project1.jpg">
   <link rel="stylesheet" href="css/style.css" />
   <script src="js/main.js" defer></script>
 </head>
-<body>
 
-  <!-- Header -->
+<body> <!-- Header -->
   <header class="header">
     <div class="container">
-      <a href="index.html"><img src="images/Royal_touch_logo.png" alt="Royal Touch Logo" class="logo"></a>
+      <a href="index.html">
+        <img src="images/Royal_touch_logo.png" alt="Royal Touch Logo" class="logo" width="100" height="auto">
+      </a>
       <button class="menu-toggle" id="menu-toggle">☰</button>
       <nav class="navbar">
         <a href="index.html">Home</a>
@@ -23,9 +28,7 @@
         <a href="contact.html">Contact</a>
       </nav>
     </div>
-  </header>
-
-  <!-- Side Drawer -->
+  </header> <!-- Side Drawer -->
   <nav class="side-drawer" id="side-drawer">
     <a href="index.html">Home</a>
     <a href="services.html">Services</a>
@@ -34,29 +37,25 @@
     <a href="gallery.html">Gallery</a>
     <a href="contact.html">Contact</a>
   </nav>
-  <div class="overlay" id="overlay"></div>
-
-  <!-- Portfolio Section -->
+  <div class="overlay" id="overlay"></div> <!-- Portfolio Section -->
   <section>
     <h2>Our Portfolio</h2>
-    <p>Take a look at some of our beautifully completed interior projects.</p>
-
-    <!-- Static examples -->
+    <p>Take a look at some of our beautifully completed interior projects.</p><!-- Static examples -->
     <div class="portfolio-grid">
       <div class="card">
-        <img src="images/Project1.jpg" alt="Project 1" class="zoom-on-hover">
+        <img src="images/Project1.jpg" alt="Living Space Design" class="zoom-on-hover" width="300" height="180">
         <h3>Living Space Design & Detailing</h3>
       </div>
       <div class="card">
-        <img src="images/Project2.jpg" alt="Project 2" class="zoom-on-hover">
+        <img src="images/Project2.jpg" alt="Dining Space Design" class="zoom-on-hover" width="300" height="180">
         <h3>Dining Space Design & Detailing</h3>
       </div>
       <div class="card">
-        <img src="images/Project3.jpg" alt="Project 3" class="zoom-on-hover">
+        <img src="images/Project3.jpg" alt="Modular Kitchen Design" class="zoom-on-hover" width="300" height="180">
         <h3>Modular Kitchen Design & Detailing</h3>
       </div>
       <div class="card">
-        <img src="images/project4.jpeg" alt="Project 4" class="zoom-on-hover">
+        <img src="images/project4.jpeg" alt="Master Bedroom Design" class="zoom-on-hover" width="300" height="180">
         <h3>Master Bedroom Design & Detailing</h3>
       </div>
     </div>
@@ -66,33 +65,27 @@
     <div class="portfolio-grid" id="dynamic-portfolio">
       <!-- Dynamic content loads here -->
     </div>
-  </section>
 
-  <!-- Footer -->
+  </section> <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <p>&copy; 2025 Royal Interior. All rights reserved.</p>
       <div class="socials">
         <a href="https://www.instagram.com/royaltouch_interior.jsr/">
-          <img src="images/instagram.png" alt="Instagram" class="footer-icon">
+          <img src="images/instagram.png" alt="Instagram" class="footer-icon" width="24" height="24">
         </a>
         <a href="https://www.facebook.com/msarfraz635">
-          <img src="images/facebook.png" alt="Facebook" class="footer-icon">
+          <img src="images/facebook.png" alt="Facebook" class="footer-icon" width="24" height="24">
         </a>
         <a href="tel:+918092177059">
-          <img src="images/mobile.png" alt="Contact Us" class="footer-icon">
+          <img src="images/mobile.png" alt="Contact Us" class="footer-icon" width="24" height="24">
         </a>
       </div>
     </div>
-  </footer>
-
-  <!-- Floating Buttons -->
-  <a href="https://wa.me/918092177059" class="whatsapp-float">
-    <img src="images/whatsapp.png" alt="Chat">
+  </footer> <!-- Floating Buttons --> <a href="https://wa.me/918092177059" class="whatsapp-float">
+    <img src="images/whatsapp.png" alt="Chat on WhatsApp" width="35" height="30">
   </a>
-  <button id="scrollTopBtn">↑</button>
-
-  <!-- Portfolio Loader -->
+  <button id="scrollTopBtn" aria-label="Scroll to top">↑</button> <!-- Portfolio Loader -->
   <script>
     async function loadPortfolioImages() {
       try {
@@ -113,6 +106,8 @@
           img.src = file.url;
           img.alt = file.title || "Portfolio Image";
           img.className = 'zoom-on-hover';
+          img.width = 300;
+          img.height = 180;
 
           const title = document.createElement('h3');
           title.textContent = file.title;
@@ -165,4 +160,5 @@
     window.addEventListener("DOMContentLoaded", loadPortfolioImages);
   </script>
 </body>
+
 </html>
