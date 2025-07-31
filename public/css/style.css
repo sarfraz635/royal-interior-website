@@ -211,6 +211,12 @@ section {
   text-decoration: none;
 }
 
+/* Footer Social Icons */
+.footer .socials img {
+  width: 24px;
+  height: 24px;
+}
+
 /* Scroll to top */
 #scrollTopBtn {
   position: fixed;
@@ -237,6 +243,10 @@ section {
   text-decoration: none;
   font-weight: bold;
   z-index: 999;
+}
+.whatsapp-float img {
+  width: 35px;
+  height: 30px;
 }
 
 /* === Mobile Hamburger Button === */
@@ -300,6 +310,11 @@ section {
 .overlay.active {
   visibility: visible;
   opacity: 1;
+}
+
+/* === Custom Utility Classes === */
+.portfolio-heading-uploaded {
+  margin-top: 40px;
 }
 
 /* === Responsive Rules === */

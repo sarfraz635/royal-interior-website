@@ -25,7 +25,7 @@
     </div>
   </header>
 
-  <!-- Side Drawer & Overlay -->
+  <!-- Side Drawer -->
   <nav class="side-drawer" id="side-drawer">
     <a href="index.html">Home</a>
     <a href="services.html">Services</a>
@@ -61,10 +61,10 @@
       </div>
     </div>
 
-    <!-- Dynamic uploads -->
-    <h2 style="margin-top: 40px;">Uploaded Projects</h2>
+    <!-- Dynamic Portfolio Uploads -->
+    <h2 class="portfolio-upload-heading">Uploaded Projects</h2>
     <div class="portfolio-grid" id="dynamic-portfolio">
-      <!-- Dynamic content goes here -->
+      <!-- Dynamic content loads here -->
     </div>
   </section>
 
@@ -73,20 +73,26 @@
     <div class="container">
       <p>&copy; 2025 Royal Interior. All rights reserved.</p>
       <div class="socials">
-        <a href="https://www.instagram.com/royaltouch_interior.jsr/"><img src="images/instagram.png" alt="Instagram" style="width: 24px; height: 24px;"></a>
-        <a href="https://www.facebook.com/msarfraz635"><img src="images/facebook.png" alt="Facebook" style="width: 24px; height: 24px;"></a>
-        <a href="tel:+918092177059"><img src="images/mobile.png" alt="Contact Us" style="width: 24px; height: 24px;"></a>
+        <a href="https://www.instagram.com/royaltouch_interior.jsr/">
+          <img src="images/instagram.png" alt="Instagram" class="footer-icon">
+        </a>
+        <a href="https://www.facebook.com/msarfraz635">
+          <img src="images/facebook.png" alt="Facebook" class="footer-icon">
+        </a>
+        <a href="tel:+918092177059">
+          <img src="images/mobile.png" alt="Contact Us" class="footer-icon">
+        </a>
       </div>
     </div>
   </footer>
 
   <!-- Floating Buttons -->
   <a href="https://wa.me/918092177059" class="whatsapp-float">
-    <img src="images/whatsapp.png" alt="Chat" style="width: 35px; height: 30px;">
+    <img src="images/whatsapp.png" alt="Chat">
   </a>
   <button id="scrollTopBtn">↑</button>
 
-  <!-- Portfolio Load Script -->
+  <!-- Portfolio Loader -->
   <script>
     async function loadPortfolioImages() {
       try {
@@ -105,7 +111,7 @@
 
           const img = document.createElement('img');
           img.src = file.url;
-          img.alt = file.title;
+          img.alt = file.title || "Portfolio Image";
           img.className = 'zoom-on-hover';
 
           const title = document.createElement('h3');
@@ -151,12 +157,12 @@
           container.appendChild(card);
         });
       } catch (err) {
-        console.error("Error loading portfolio:", err);
+        console.error("Error loading portfolio images:", err);
+        document.getElementById('dynamic-portfolio').innerHTML = "<p>Error loading images.</p>";
       }
     }
 
     window.addEventListener("DOMContentLoaded", loadPortfolioImages);
   </script>
-
 </body>
 </html>

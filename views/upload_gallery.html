@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Upload Gallery Image - Admin Panel</title>
   <link rel="stylesheet" href="/css/style.css" />
   <style>
@@ -45,7 +45,7 @@
       flex-direction: column;
       gap: 15px;
       width: 100%;
-      max-width: 320px;
+      max-width: 340px;
     }
 
     .upload-form input[type="file"],
@@ -93,7 +93,7 @@
   <div class="upload-wrapper">
     <header class="upload-header">
       <a href="/upload.html">
-        <img src="images/Royal_touch_logo.png" alt="Royal Touch Logo" class="logo">
+        <img src="/images/Royal_touch_logo.png" alt="Royal Touch Logo" class="logo">
       </a>
     </header>
 
@@ -103,7 +103,7 @@
         <input type="text" name="title" placeholder="Enter image title" required />
         <input type="file" name="image" accept="image/*" onchange="previewImage(event)" required />
         <div id="image-preview">
-          <img id="preview" />
+          <img id="preview" alt="Preview"/>
         </div>
         <button type="submit">Upload</button>
       </form>
