@@ -4,11 +4,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gallery - Royal Touch</title> <!-- Preconnect Fonts -->
+  <title>Gallery - Royal Touch</title>
+  <!-- Preconnect Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&display=swap"
-    rel="stylesheet"> <!-- CSS & JS -->
+    rel="stylesheet">
+  <!-- CSS & JS -->
   <link rel="stylesheet" href="css/style.css" />
   <script src="js/main.js" defer></script>
   <script defer>
@@ -16,11 +18,12 @@
       try {
         const res = await fetch('/images/gallery');
         const { files, loggedIn } = await res.json();
-        const gallery = document.getElementById('gallery');
-        if (!files.length) {
+        const gallery = document.getElementById('gallery'); if (!files.length) {
           gallery.innerHTML = "<p>No images found.</p>";
           return;
-        } files.forEach(file => {
+        }
+
+        files.forEach(file => {
           const card = document.createElement('div');
           card.className = 'card';
 
@@ -42,7 +45,7 @@
             const deleteBtn = document.createElement('button');
             deleteBtn.className = 'delete-btn';
             deleteBtn.textContent = 'Delete';
-            deleteBtn.dataset.filename = file.filename;
+            deleteBtn.dataset.publicId = file.public_id;
             deleteBtn.dataset.folder = 'gallery';
 
             card.appendChild(deleteBtn);

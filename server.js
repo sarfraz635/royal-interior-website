@@ -6,7 +6,8 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-const Image = require('./models/Image'); // Image schema
+const cloudinary = require('./cloudinary');
+const Image = require('./models/Image');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,7 +21,6 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 // ✅ Middleware
 app.use(express.static('public'));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -64,49 +64,56 @@ app.get('/logout', (req, res) => {
   });
 });
 
-// ✅ Ensure upload folder exists
-const ensureFolderExists = (folder) => {
-  if (!fs.existsSync(folder)) {
-    fs.mkdirSync(folder, { recursive: true });
-  }
-};
-
-// ✅ Multer setup
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const folder = req.originalUrl.includes('portfolio') ? 'uploads/portfolio' : 'uploads/gallery';
-    ensureFolderExists(folder);
-    cb(null, folder);
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = Date.now() + '-' + file.originalname;
-    cb(null, uniqueName);
-  }
-});
+// ✅ Multer memory storage for Cloudinary
+const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-// ✅ Upload Portfolio
+// ✅ Upload Portfolio to Cloudinary
 app.post('/upload-portfolio', requireLogin, upload.single('image'), async (req, res) => {
-  const image = new Image({
-    title: req.body.title,
-    url: `/uploads/portfolio/${req.file.filename}`,
-    public_id: req.file.filename,
-    folder: 'portfolio'
-  });
-  await image.save();
-  res.redirect(`/upload-success.html?img=${encodeURIComponent(image.url)}&type=portfolio`);
+  try {
+    const stream = cloudinary.uploader.upload_stream({ folder: 'portfolio' }, async (error, result) => {
+      if (error) throw error;
+
+      const image = new Image({
+        title: req.body.title,
+        url: result.secure_url,
+        public_id: result.public_id,
+        folder: 'portfolio'
+      });
+
+      await image.save();
+      res.redirect(`/upload-success.html?img=${encodeURIComponent(image.url)}&type=portfolio`);
+    });
+
+    stream.end(req.file.buffer);
+  } catch (err) {
+    console.error('Portfolio upload error:', err);
+    res.status(500).send('Upload failed');
+  }
 });
 
-// ✅ Upload Gallery
+// ✅ Upload Gallery to Cloudinary
 app.post('/upload-gallery', requireLogin, upload.single('image'), async (req, res) => {
-  const image = new Image({
-    title: req.body.title,
-    url: `/uploads/gallery/${req.file.filename}`,
-    public_id: req.file.filename,
-    folder: 'gallery'
-  });
-  await image.save();
-  res.redirect(`/upload-success.html?img=${encodeURIComponent(image.url)}&type=gallery`);
+  try {
+    const stream = cloudinary.uploader.upload_stream({ folder: 'gallery' }, async (error, result) => {
+      if (error) throw error;
+
+      const image = new Image({
+        title: req.body.title,
+        url: result.secure_url,
+        public_id: result.public_id,
+        folder: 'gallery'
+      });
+
+      await image.save();
+      res.redirect(`/upload-success.html?img=${encodeURIComponent(image.url)}&type=gallery`);
+    });
+
+    stream.end(req.file.buffer);
+  } catch (err) {
+    console.error('Gallery upload error:', err);
+    res.status(500).send('Upload failed');
+  }
 });
 
 // ✅ Get Gallery Images
@@ -121,12 +128,18 @@ app.get('/images/portfolio', async (req, res) => {
   res.json({ files, loggedIn: req.session.loggedIn });
 });
 
-// ✅ Delete Image
+// ✅ Delete Image from Cloudinary and DB
 app.post('/delete-image', requireLogin, async (req, res) => {
   const { public_id, folder } = req.body;
-  const result = await Image.findOneAndDelete({ public_id, folder });
-  if (!result) return res.status(404).json({ success: false, message: 'Image not found' });
-  res.json({ success: true });
+  try {
+    await cloudinary.uploader.destroy(public_id);
+    const result = await Image.findOneAndDelete({ public_id, folder });
+    if (!result) return res.status(404).json({ success: false, message: 'Image not found' });
+    res.json({ success: true });
+  } catch (err) {
+    console.error('❌ Delete error:', err);
+    res.status(500).json({ success: false, message: 'Failed to delete image' });
+  }
 });
 
 // ✅ Static Routes
