@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
@@ -13,10 +14,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // ✅ Connect MongoDB
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => console.log('✅ Connected to MongoDB'))
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log('✅ Connected to MongoDB'))
   .catch(err => console.error('❌ MongoDB connection error:', err));
 
 // ✅ Middleware
@@ -28,7 +27,11 @@ app.use(express.json());
 app.use(session({
   secret: process.env.SESSION_SECRET || 'royal-touch-secret',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGODB_URI,
+    collectionName: 'sessions',
+  }),
 }));
 
 // ✅ Auth middleware
@@ -145,6 +148,30 @@ app.post('/delete-image', requireLogin, async (req, res) => {
 // ✅ Static Routes
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 app.get('/health', (req, res) => res.status(200).send('OK'));
+
+// ✅ Site Map
+const { SitemapStream, streamToPromise } = require('sitemap');
+const { Readable } = require('stream');
+
+app.get('/sitemap.xml', async (req, res) => {
+  try {
+    const links = [
+      { url: '/', changefreq: 'monthly', priority: 1.0 },
+      { url: '/gallery.html', changefreq: 'monthly', priority: 0.8 },
+      { url: '/portfolio.html', changefreq: 'monthly', priority: 0.8 },
+      { url: '/login.html', changefreq: 'yearly', priority: 0.2 },
+    ];
+
+    const stream = new SitemapStream({ hostname: 'https://royal-touch-interior-designing-studio.onrender.com' });
+
+    res.header('Content-Type', 'application/xml');
+    const xml = await streamToPromise(Readable.from(links).pipe(stream)).then((data) => data.toString());
+    res.send(xml);
+  } catch (err) {
+    console.error('❌ Sitemap generation error:', err);
+    res.status(500).end();
+  }
+});
 
 // ✅ Start Server
 app.listen(PORT, () => {
