@@ -13,6 +13,15 @@ const Image = require('./models/Image');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// 🔁 Redirect www. to non-www.
+app.use((req, res, next) => {
+  if (req.headers.host && req.headers.host.startsWith('www.')) {
+    const newHost = req.headers.host.slice(4); // Remove 'www.'
+    return res.redirect(301, `https://${newHost}${req.originalUrl}`);
+  }
+  next();
+});
+
 // ✅ Connect MongoDB
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('✅ Connected to MongoDB'))
