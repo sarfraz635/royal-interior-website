@@ -171,7 +171,7 @@ app.get('/sitemap.xml', async (req, res) => {
       { url: '/login.html', changefreq: 'yearly', priority: 0.2 },
     ];
 
-    const stream = new SitemapStream({ hostname: 'https://royal-touch-interior-designing-studio.onrender.com' });
+    const stream = new SitemapStream({ hostname: 'https://royaltouchinterior.co.in' });
 
     res.header('Content-Type', 'application/xml');
     const xml = await streamToPromise(Readable.from(links).pipe(stream)).then((data) => data.toString());
