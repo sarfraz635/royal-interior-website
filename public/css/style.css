@@ -49,6 +49,11 @@ h2 {
   text-decoration: none;
   color: #d4af37;
   font-weight: bold;
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+.navbar a:hover {
+  transform: scale(1.1);
+  text-shadow: 0 0 8px #d4af37, 0 0 12px #d4af37;
 }
 
 /* Hero */
@@ -119,7 +124,7 @@ section,
   border: 1px solid #444;
   border-radius: 10px;
   overflow: hidden;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -128,6 +133,7 @@ section,
 
 .card:hover {
   transform: scale(1.03);
+  box-shadow: 0 0 12px #d4af37, 0 0 24px #d4af37;
 }
 
 .card img {
