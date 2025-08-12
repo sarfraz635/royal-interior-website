@@ -182,6 +182,11 @@ app.get('/sitemap.xml', async (req, res) => {
   }
 });
 
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain');
+  res.send('');
+});
+
 // ✅ Start Server
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
