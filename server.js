@@ -182,7 +182,6 @@ app.get('/sitemap.xml', async (req, res) => {
   }
 });
 
-// ✅ Redirect /robots.txt to GitHub Pages version
 app.get('/robots.txt', (req, res) => {
   res.redirect('https://sarfraz635.github.io/royaltouch-robots/robots.txt');
 });
