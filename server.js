@@ -183,7 +183,7 @@ app.get('/sitemap.xml', async (req, res) => {
 });
 
 app.get('/robots.txt', (req, res) => {
-  res.redirect('https://sarfraz635.github.io/royaltouch-robots/robots.txt');
+  res.redirect(301, 'https://sarfraz635.github.io/royaltouch-robots/robots.txt');
 });
 
 // ✅ Start Server
