@@ -1,5 +1,0 @@
-User-agent: *
-Disallow: /login.html
-Disallow: /upload.html
-Disallow: /upload_gallery.html
-Disallow: /upload_portfolio.html
