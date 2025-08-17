@@ -184,7 +184,12 @@ app.get('/sitemap.xml', async (req, res) => {
 
 app.get('/robots.txt', (req, res) => {
   res.type('text/plain');
-  res.send('');
+  res.send(
+    `User-agent: *
+Disallow:
+
+Sitemap: https://royaltouchinterior.co.in/sitemap.xml`
+  );
 });
 
 // ✅ Start Server
